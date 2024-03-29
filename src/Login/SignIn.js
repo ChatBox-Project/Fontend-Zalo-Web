@@ -8,10 +8,11 @@ import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { IconButton } from '@mui/material';
+import { SignIn} from 'phosphor-react';
 
 function Copyright(props) {
   return (
@@ -21,7 +22,6 @@ function Copyright(props) {
         Your Website
       </Link>{' '}
       {new Date().getFullYear()}
-      {'.'}
     </Typography>
   );
 }
@@ -30,7 +30,7 @@ function Copyright(props) {
 
 const defaultTheme = createTheme();
 
-export default function SignIn() {
+export default function MainLayout() {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -53,10 +53,12 @@ export default function SignIn() {
           }}
         >
           <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-            <LockOutlinedIcon />
+            <IconButton>
+                <SignIn />
+            </IconButton>
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign in
+            Đăng Nhập
           </Typography>
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
             <TextField
@@ -64,7 +66,7 @@ export default function SignIn() {
               required
               fullWidth
               id="email"
-              label="Email Address"
+              label="Địa chỉ email"
               name="email"
               autoComplete="email"
               autoFocus
@@ -74,7 +76,7 @@ export default function SignIn() {
               required
               fullWidth
               name="password"
-              label="Password"
+              label="Mật Khẩu"
               type="password"
               id="password"
               autoComplete="current-password"
@@ -94,12 +96,12 @@ export default function SignIn() {
             <Grid container>
               <Grid item xs>
                 <Link href="#" variant="body2">
-                  Forgot password?
+                  Quên mật khẩu
                 </Link>
               </Grid>
               <Grid item>
                 <Link href="#" variant="body2">
-                  {"Don't have an account? Sign Up"}
+                  {"Bạn chưa có tài khoản ? đăng kí ngay đi"}
                 </Link>
               </Grid>
             </Grid>
