@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import * as Yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import {Link as RouterLink} from "react-router-dom"
 import {
   Alert,
   Button,
@@ -15,20 +14,24 @@ import FormProvider from "../../components/hook-form/FormProvider";
 import { RHFTextField } from "../../components/hook-form";
 import { Eye, EyeSlash } from "phosphor-react";
 import { ThemeContext } from "@emotion/react";
-const LoginForm = () => {
+const RegisterForm = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const LoginSchema = Yup.object().shape({
+  const RegisterSchema = Yup.object().shape({
+    firstName: Yup.string().required("Bắt buộc nhập"),
+    lastName: Yup.string().required("Bắt buộc nhập"),
     email: Yup.string()
       .required("Email là bắt buộc")
       .email("Email phải hợp lệ"),
     password: Yup.string().required("Mật khẩu là bắt buộc"),
   });
   const defaultValues = {
+    firstName: "Tran",
+    lastName: "Thanh",
     email: "tranthethanh@gmail.com",
     password: "123",
   };
   const methods = useForm({
-    resolver: yupResolver(LoginSchema),
+    resolver: yupResolver(RegisterSchema),
     defaultValues,
   });
   const {
@@ -55,6 +58,10 @@ const LoginForm = () => {
         {!!errors.afterSubmit && (
           <Alert severity="error">{errors.afterSubmit.message}</Alert>
         )}
+        <Stack direction={{ sx: "column ", sm: "row" }}>
+          <RHFTextField name="firstName" label="First Name" />
+          <RHFTextField name="lastName" label="Last Name" />
+        </Stack>
         <RHFTextField name="email" label="Email" />
 
         <RHFTextField
@@ -76,19 +83,16 @@ const LoginForm = () => {
           }}
         />
       </Stack>
-      <Stack alignItems={"flex-end"} sx={{ my: 2 }}>
-        <Link component={RouterLink}  to={"/auth/resetpassword"} variant="body2" color={"inherit"} underline="always">
-          Quên mật khẩu ?
-        </Link>
-      </Stack>
       <Button
         sx={{
           bgcolor: "text.primary",
-          color: (theme) => theme.palette.mode === "light" ? "common.white" : "grey.800",
-          "&:hover":{
+          color: (theme) =>
+            theme.palette.mode === "light" ? "common.white" : "grey.800",
+          "&:hover": {
             bgcolor: "text.primary",
-            color: (theme) => theme.palette.mode === "light" ?"common.white" : "grey.800",
-          }
+            color: (theme) =>
+              theme.palette.mode === "light" ? "common.white" : "grey.800",
+          },
         }}
         fullWidth
         color="inherit"
@@ -96,10 +100,10 @@ const LoginForm = () => {
         type="submit"
         variant="contained"
       >
-        Đăng Nhập
+        Đăng Kí
       </Button>
     </FormProvider>
   );
 };
 
-export default LoginForm;
+export default RegisterForm;

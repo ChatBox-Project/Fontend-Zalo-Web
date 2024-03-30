@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import * as Yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import {Link as RouterLink} from "react-router-dom"
+import { Link as RouterLink } from "react-router-dom";
 import {
   Alert,
   Button,
@@ -15,20 +15,18 @@ import FormProvider from "../../components/hook-form/FormProvider";
 import { RHFTextField } from "../../components/hook-form";
 import { Eye, EyeSlash } from "phosphor-react";
 import { ThemeContext } from "@emotion/react";
-const LoginForm = () => {
+const ResetPassForm = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const LoginSchema = Yup.object().shape({
+  const ResetPasswordSchema = Yup.object().shape({
     email: Yup.string()
       .required("Email là bắt buộc")
       .email("Email phải hợp lệ"),
-    password: Yup.string().required("Mật khẩu là bắt buộc"),
   });
   const defaultValues = {
     email: "tranthethanh@gmail.com",
-    password: "123",
   };
   const methods = useForm({
-    resolver: yupResolver(LoginSchema),
+    resolver: yupResolver(ResetPasswordSchema),
     defaultValues,
   });
   const {
@@ -56,39 +54,16 @@ const LoginForm = () => {
           <Alert severity="error">{errors.afterSubmit.message}</Alert>
         )}
         <RHFTextField name="email" label="Email" />
-
-        <RHFTextField
-          name="password"
-          label="Password"
-          type={showPassword ? "text" : "password"}
-          InputProps={{
-            endAdornment: (
-              <InputAdornment>
-                <IconButton
-                  onClick={() => {
-                    setShowPassword(!showPassword);
-                  }}
-                >
-                  {showPassword ? <Eye /> : <EyeSlash />}
-                </IconButton>
-              </InputAdornment>
-            ),
-          }}
-        />
-      </Stack>
-      <Stack alignItems={"flex-end"} sx={{ my: 2 }}>
-        <Link component={RouterLink}  to={"/auth/resetpassword"} variant="body2" color={"inherit"} underline="always">
-          Quên mật khẩu ?
-        </Link>
-      </Stack>
-      <Button
+        <Button
         sx={{
           bgcolor: "text.primary",
-          color: (theme) => theme.palette.mode === "light" ? "common.white" : "grey.800",
-          "&:hover":{
+          color: (theme) =>
+            theme.palette.mode === "light" ? "common.white" : "grey.800",
+          "&:hover": {
             bgcolor: "text.primary",
-            color: (theme) => theme.palette.mode === "light" ?"common.white" : "grey.800",
-          }
+            color: (theme) =>
+              theme.palette.mode === "light" ? "common.white" : "grey.800",
+          },
         }}
         fullWidth
         color="inherit"
@@ -96,10 +71,11 @@ const LoginForm = () => {
         type="submit"
         variant="contained"
       >
-        Đăng Nhập
+        Gửi yêu cầu
       </Button>
+      </Stack>
     </FormProvider>
   );
 };
 
-export default LoginForm;
+export default ResetPassForm;
