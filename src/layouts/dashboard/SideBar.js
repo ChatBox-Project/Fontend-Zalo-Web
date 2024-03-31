@@ -10,10 +10,23 @@ const getPath = (index) => {
       return "/app";
     case 1:
       return "/group";
-    case 2  :
+    case 2:
       return "/call";
-    case 3 :
-        return "/profile";
+    case 3:
+      return "/profile";
+    default:
+      break;
+  }
+};
+
+const getMenuPath = (index) => {
+  switch (index) {
+    case 0:
+      return "/profile";
+    case 1:
+      return "/settings";
+    case 2:
+      return "/auth/login";
     default:
       break;
   }
@@ -104,9 +117,14 @@ const SideBar = () => {
                   }}
                 >
                   <Stack spacing={1} px={1}>
-                    {Profile_Menu.map((el) => (
-                      <MenuItem onClick={handleClick}>
+                    {Profile_Menu.map((el, idx) => (
+                      <MenuItem
+                        onClick={() => {
+                          handleClick();
+                        }}
+                      >
                         <Stack
+                          onClick={()=> { navigate(getMenuPath(idx));}}
                           sx={{ width: 100 }}
                           direction={"row"}
                           alignItems={"center"}
