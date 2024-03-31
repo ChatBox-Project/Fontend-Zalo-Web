@@ -3,10 +3,24 @@ import React, { useState } from "react";
 import { Nav_Buttons, Profile_Menu } from "../../data";
 import avatar from "../../assets/Images/avatar.jpg";
 import { Gear } from "phosphor-react";
-
+import { useNavigate } from "react-router-dom";
+const getPath = (index) => {
+  switch (index) {
+    case 0:
+      return "/app";
+    case 1:
+      return "/group";
+    case 2  :
+      return "/call";
+    case 3 :
+        return "/profile";
+    default:
+      break;
+  }
+};
 const SideBar = () => {
   const [selected, setSelected] = useState(0);
-
+  const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -32,7 +46,7 @@ const SideBar = () => {
             height: 64,
             width: 64,
             borderRadius: "50%",
-            objectFit:"scale-down",
+            objectFit: "scale-down",
           }}
         >
           <img src={avatar} alt={"Chat App"} />
@@ -52,6 +66,7 @@ const SideBar = () => {
               <IconButton
                 onClick={() => {
                   setSelected(el.index);
+                  navigate(getPath(el.index));
                 }}
                 sx={{ width: "max-content", color: "#000" }}
                 key={el.index}
@@ -70,7 +85,6 @@ const SideBar = () => {
                   aria-haspopup="true"
                   aria-expanded={open ? "true" : undefined}
                   onClick={handleClick}
-                  
                 />
                 <Menu
                   id="basic-menu"
@@ -81,12 +95,12 @@ const SideBar = () => {
                     "aria-labelledby": "basic-button",
                   }}
                   anchorOrigin={{
-                    vertical:'bottom',
-                    horizontal:'left',
+                    vertical: "bottom",
+                    horizontal: "left",
                   }}
                   transformOrigin={{
-                    vertical:'bottom',
-                    horizontal:'left',
+                    vertical: "bottom",
+                    horizontal: "left",
                   }}
                 >
                   <Stack spacing={1} px={1}>
@@ -111,6 +125,7 @@ const SideBar = () => {
             <IconButton
               onClick={() => {
                 setSelected(3);
+                navigate(getPath(3));
               }}
             >
               <Gear />
